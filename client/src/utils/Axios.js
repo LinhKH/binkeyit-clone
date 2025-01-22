@@ -9,6 +9,7 @@ const Axios = axios.create({
 //sending access token in the header
 Axios.interceptors.request.use(
   async (config) => {
+    console.log(config);
     const accessToken = localStorage.getItem("accesstoken");
 
     if (accessToken) {
@@ -22,17 +23,16 @@ Axios.interceptors.request.use(
   }
 );
 
-//extend the life span of access token with
-// the help refresh
-Axios.interceptors.request.use(
+//extend the life span of access token with the help refresh
+Axios.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
-    let originRequest = error.config;
-
-    if (error.response.status === 401 && !originRequest.retry) {
-      originRequest.retry = true;
+    let originalRequest = error.config;
+    
+    if (error.response.status === 401 && !originalRequest.retry) {
+      originalRequest.retry = true;
 
       const refreshToken = localStorage.getItem("refreshToken");
 
@@ -40,8 +40,8 @@ Axios.interceptors.request.use(
         const newAccessToken = await refreshAccessToken(refreshToken);
 
         if (newAccessToken) {
-          originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-          return Axios(originRequest);
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return Axios(originalRequest);
         }
       }
     }
