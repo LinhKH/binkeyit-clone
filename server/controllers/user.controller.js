@@ -4,7 +4,10 @@ import bcryptjs from "bcryptjs";
 import verifyEmailTemplate from "../utils/verifyEmailTemplate.js";
 import generatedAccessToken from "../utils/generatedAccessToken.js";
 import genertedRefreshToken from "../utils/generatedRefreshToken.js";
-import uploadImageClodinary from "../utils/uploadImageClodinary.js";
+import {
+  uploadImageClodinary,
+  removeImageClodinary,
+} from "../utils/uploadImageClodinary.js";
 import generatedOtp from "../utils/generatedOtp.js";
 import forgotPasswordTemplate from "../utils/forgotPasswordTemplate.js";
 import jwt from "jsonwebtoken";
@@ -217,9 +220,16 @@ export async function uploadAvatar(request, response) {
     const userId = request.userId; // auth middlware
     const image = request.file; // multer middleware
 
+    // Retrieve the current user's avatar URL
+    const user = await UserModel.findById(userId);
+    const oldAvatarUrl = user.avatar;
+
     const upload = await uploadImageClodinary(image);
 
-    const updateUser = await UserModel.findByIdAndUpdate(userId, {
+    // Remove the old image from Cloudinary if it exists
+    await removeImageClodinary(oldAvatarUrl);
+
+    await UserModel.findByIdAndUpdate(userId, {
       avatar: upload.url,
     });
 

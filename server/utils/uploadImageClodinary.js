@@ -23,4 +23,17 @@ const uploadImageClodinary = async (image) => {
   return uploadImage;
 };
 
-export default uploadImageClodinary;
+const removeImageClodinary = async (oldAvatarUrl) => {
+  try {
+    if (oldAvatarUrl) {
+      const urlParts = oldAvatarUrl.split('/');
+      const folderAndPublicId = urlParts.slice(-2).join('/').split('.')[0];
+      await cloudinary.uploader.destroy(folderAndPublicId);
+    }
+  } catch (error) {
+    console.error("Error removing image from Cloudinary:", error);
+    throw new Error("Failed to remove old avatar from Cloudinary");
+  }
+};
+
+export { uploadImageClodinary, removeImageClodinary };
