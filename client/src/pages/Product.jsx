@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Address = () => {
+const Product = () => {
   return (
     <div>
-      Address
+      Product
     </div>
   )
 }
 
-export default Address
+export default Product

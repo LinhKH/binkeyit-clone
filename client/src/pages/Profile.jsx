@@ -66,7 +66,7 @@ const Profile = () => {
     <div className="p-4">
       {/**profile upload and display image */}
       <div className="flex flex-col items-center justify-center mx-auto">
-        <div className="w-20 h-20 bg-red-500 rounded-full overflow-hidden drop-shadow-sm">
+        <div className="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center overflow-hidden drop-shadow-sm">
           {user.avatar ? (
             <img alt={user.name} src={user.avatar} className="w-full h-full" />
           ) : (
@@ -92,7 +92,7 @@ const Profile = () => {
           <input
             type="text"
             placeholder="Enter your name"
-            className="p-2 bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
+            className="w-full bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
             value={userData.name}
             name="name"
             onChange={handleOnChange}
@@ -105,7 +105,7 @@ const Profile = () => {
             type="email"
             id="email"
             placeholder="Enter your email"
-            className="p-2 bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
+            className="w-full bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
             value={userData.email}
             name="email"
             onChange={handleOnChange}
@@ -118,7 +118,7 @@ const Profile = () => {
             type="text"
             id="mobile"
             placeholder="Enter your mobile"
-            className="p-2 bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
+            className="w-full bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
             value={userData.mobile}
             name="mobile"
             onChange={handleOnChange}

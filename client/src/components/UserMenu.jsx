@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Divider from "./Divider";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
@@ -66,73 +66,87 @@ const UserMenu = ({ close }) => {
             {user.role === "ADMIN" ? "(Admin)" : ""}
           </span>
         </span>
-        <Link
+        <NavLink
           onClick={handleClose}
           to={"/dashboard/profile"}
-          className="hover:text-primary-200"
+          className={({ isActive }) =>
+            `${isActive ? "bg-orange-200" : "hover:bg-orange-200"}`
+          }
         >
           <HiOutlineExternalLink size={15} />
-        </Link>
+        </NavLink>
       </div>
 
       <Divider />
 
       <div className="text-sm grid gap-1">
         {isAdmin(user.role) && (
-          <Link
+          <NavLink
             onClick={handleClose}
             to={"/dashboard/category"}
-            className="px-2 hover:bg-orange-200 py-1"
+            className={({ isActive }) =>
+              `px-2 py-1 ${isActive ? "bg-orange-200" : "hover:bg-orange-200"}`
+            }
           >
             Category
-          </Link>
+          </NavLink>
         )}
 
         {isAdmin(user.role) && (
-          <Link
+          <NavLink
             onClick={handleClose}
             to={"/dashboard/subcategory"}
-            className="px-2 hover:bg-orange-200 py-1"
+            className={({ isActive }) =>
+              `px-2 py-1 ${isActive ? "bg-orange-200" : "hover:bg-orange-200"}`
+            }
           >
             Sub Category
-          </Link>
+          </NavLink>
         )}
 
         {isAdmin(user.role) && (
-          <Link
+          <NavLink
             onClick={handleClose}
             to={"/dashboard/upload-product"}
-            className="px-2 hover:bg-orange-200 py-1"
+            className={({ isActive }) =>
+              `px-2 py-1 ${isActive ? "bg-orange-200" : "hover:bg-orange-200"}`
+            }
           >
             Upload Product
-          </Link>
+          </NavLink>
         )}
 
         {isAdmin(user.role) && (
-          <Link
+          <NavLink
             onClick={handleClose}
             to={"/dashboard/product"}
-            className="px-2 hover:bg-orange-200 py-1"
+            className={({ isActive }) =>
+              `px-2 py-1 ${isActive ? "bg-orange-200" : "hover:bg-orange-200"}`
+            }
           >
             Product
-          </Link>
+          </NavLink>
         )}
 
-        <Link
+        <NavLink
           onClick={handleClose}
           to={"/dashboard/myorders"}
-          className="px-2 hover:bg-orange-200 py-1"
+          className={({ isActive }) =>
+              `px-2 py-1 ${isActive ? "bg-orange-200" : "hover:bg-orange-200"}`
+            }
         >
           My Orders
-        </Link>
+        </NavLink>
 
-        <Link
+        <NavLink
           onClick={handleClose}
           to={"/dashboard/address"}
-          className="px-2 hover:bg-orange-200 py-1"
+          className={({ isActive }) =>
+              `px-2 py-1 ${isActive ? "bg-orange-200" : "hover:bg-orange-200"}`
+            }
         >
           Save Address
-        </Link>
+        </NavLink>
 
         <button
           onClick={handleLogout}
