@@ -9,7 +9,6 @@ const Axios = axios.create({
 //sending access token in the header
 Axios.interceptors.request.use(
   async (config) => {
-    console.log(config);
     const accessToken = localStorage.getItem("accesstoken");
 
     if (accessToken) {

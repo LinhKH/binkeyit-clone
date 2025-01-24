@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import './Header.css';
 import logo from "../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Search from "./Search";

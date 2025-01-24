@@ -67,6 +67,13 @@ export const updateCategoryController = async (request, response) => {
   try {
     const { _id, name, image } = request.body;
 
+    if (image) {
+      // Remove the old image from Cloudinary if it exists
+      const category = await CategoryModel.findById(_id);
+      const oldImageUrl = category.image;
+      await removeImageClodinary(oldImageUrl);
+    }
+
     const update = await CategoryModel.updateOne(
       {
         _id: _id,
@@ -115,14 +122,13 @@ export const deleteCategoryController = async (request, response) => {
         success: false,
       });
     }
-    
+
+    // Remove the old image from Cloudinary if it exists
     const category = await CategoryModel.findById(_id);
     const oldImageUrl = category.image;
-    // Remove the old image from Cloudinary if it exists
     await removeImageClodinary(oldImageUrl);
 
     const deleteCategory = await CategoryModel.deleteOne({ _id: _id });
-
 
     return response.json({
       message: "Delete category successfully",

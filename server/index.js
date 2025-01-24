@@ -10,6 +10,8 @@ import connectDB from "./config/connectDB.js";
 import userRouter from "./routes/user.route.js";
 import uploadRouter from "./routes/upload.router.js";
 import categoryRouter from "./routes/category.route.js";
+import subCategoryRouter from "./routes/subCategory.route.js";
+import productRouter from "./routes/product.route.js";
 
 const app = express();
 app.use(
@@ -40,6 +42,8 @@ app.get("/", (request, response) => {
 app.use("/api/user", userRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/file", uploadRouter);
+app.use("/api/subcategory", subCategoryRouter);
+app.use("/api/product", productRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => {

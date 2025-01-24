@@ -6,10 +6,11 @@ import SummaryApi from "../common/SummaryApi";
 import { toast } from "sonner";
 import AxiosToastError from "../utils/AxiosToastError";
 
-const UploadCategoryModel = ({ close, fetchData }) => {
+const EditCategory = ({ close, fetchData, data: CategoryData }) => {
   const [data, setData] = useState({
-    name: "",
-    image: "",
+    _id: CategoryData._id,
+    name: CategoryData.name,
+    image: CategoryData.image,
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,14 +24,13 @@ const UploadCategoryModel = ({ close, fetchData }) => {
       };
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
       const response = await Axios({
-        ...SummaryApi.addCategory,
+        ...SummaryApi.updateCategory,
         data: data,
       });
       const { data: responseData } = response;
@@ -46,25 +46,30 @@ const UploadCategoryModel = ({ close, fetchData }) => {
       setLoading(false);
     }
   };
-
   const handleUploadCategoryImage = async (e) => {
     const file = e.target.files[0];
 
     if (!file) {
       return;
     }
-
+    setLoading(true);
     const response = await uploadImage(file);
     const { data: ImageResponse } = response;
+    setLoading(false);
 
-    setData({ ...data, image: ImageResponse.data.url });
+    setData((preve) => {
+      return {
+        ...preve,
+        image: ImageResponse.data.url,
+      };
+    });
   };
   return (
     <section className="fixed inset-0 z-50 right-0 p-4 bg-neutral-800 bg-opacity-60 flex items-center justify-center">
       <div className="bg-white max-w-4xl w-full p-4 rounded">
         <div className="flex items-center justify-between">
-          <h1 className="font-semibold">Add Category</h1>
-          <button onClick={close} className="w-fit block ml-auto">
+          <h1 className="font-semibold">Update Category</h1>
+          <button onClick={close} className="w-fit block">
             <IoClose size={25} />
           </button>
         </div>
@@ -98,19 +103,19 @@ const UploadCategoryModel = ({ close, fetchData }) => {
               <label htmlFor="uploadCategoryImage">
                 <div
                   className={`
-                            ${
-                              !data.name
-                                ? "bg-gray-300"
-                                : "border-primary-200 hover:bg-primary-100"
-                            }  
-                                px-4 py-2 rounded cursor-pointer border font-medium
-                            `}
+                        ${
+                          !data.name
+                            ? "bg-gray-300"
+                            : "border-primary-200 hover:bg-primary-100"
+                        }  
+                            px-4 py-2 rounded cursor-pointer border font-medium
+                        `}
                 >
-                  Upload Image
+                  {loading ? "Loading..." : "Upload Image"}
                 </div>
 
                 <input
-                  disabled={!data.name || loading}
+                  disabled={!data.name}
                   onChange={handleUploadCategoryImage}
                   type="file"
                   id="uploadCategoryImage"
@@ -121,18 +126,17 @@ const UploadCategoryModel = ({ close, fetchData }) => {
           </div>
 
           <button
-            disabled={loading}
             className={`
-                    ${
-                      data.name && data.image
-                        ? "bg-primary-200 hover:bg-primary-100"
-                        : "bg-gray-300 "
-                    }
-                    py-2    
-                    font-semibold 
-                    `}
+                ${
+                  data.name && data.image
+                    ? "bg-primary-200 hover:bg-primary-100"
+                    : "bg-gray-300 "
+                }
+                py-2    
+                font-semibold 
+                `}
           >
-            Add Category
+            Update Category
           </button>
         </form>
       </div>
@@ -140,4 +144,4 @@ const UploadCategoryModel = ({ close, fetchData }) => {
   );
 };
 
-export default UploadCategoryModel;
+export default EditCategory;

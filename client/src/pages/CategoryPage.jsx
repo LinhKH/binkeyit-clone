@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import Loading from "../components/Loading";
 import NoData from "../components/NoData";
 import CofirmBox from "../components/CofirmBox";
+import EditCategory from "../components/EditCategory";
 import UploadCategoryModel from "../components/UploadCategoryModel";
 import Axios from "../utils/Axios";
 import CategoryItem from "../components/CategoryItem";
@@ -96,6 +97,14 @@ const CategoryPage = () => {
         <UploadCategoryModel
           fetchData={fetchCategory}
           close={() => setOpenUploadCategory(false)}
+        />
+      )}
+
+      {openEdit && (
+        <EditCategory
+          data={editData}
+          close={() => setOpenEdit(false)}
+          fetchData={fetchCategory}
         />
       )}
 
