@@ -4,13 +4,13 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 const CategoryItem = ({ category, onEdit, onDelete }) => {
   return (
-    <div className="w-32 h-56 rounded shadow-md">
+    <div className="w-32 h-56 rounded shadow-md flex flex-col">
       <img
         alt={category.name}
         src={category.image}
         className="w-full object-scale-down"
       />
-      <div className="h-9 flex items-center justify-center gap-2 px-2">
+      <div className="h-9 flex items-center mt-auto justify-center gap-2 px-2">
         {/* <button
           onClick={() => onEdit(category)}
           className="flex-1 bg-green-100 hover:bg-green-200 text-green-600 font-medium py-1 rounded px-3 text-xs"

@@ -1,12 +1,12 @@
 import React from "react";
 import UserMenu from "../components/UserMenu";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.user);
 
-  return (
+  return user._id ? (
     <section className="bg-white">
       <div className="container mx-auto p-3 grid grid-cols-1 lg:grid-cols-[250px,1fr]  ">
         {/**left for menu */}
@@ -20,6 +20,8 @@ const Dashboard = () => {
         </div>
       </div>
     </section>
+  ) : (
+    <Navigate to="/login" />
   );
 };
 
