@@ -11,8 +11,8 @@ const Home = () => {
   const categoryData = useSelector((state) => state.product.allCategory);
   const subCategoryData = useSelector((state) => state.product.allSubCategory);
   const navigate = useNavigate();
-  const handleRedirectProductListpage = (id, cat) => {
-    console.log(id, cat);
+  const handleRedirectProductListpage = (id, catName) => {
+    console.log(id, catName);
     const subcategory = subCategoryData.find((sub) => {
       const filterData = sub.category.some((c) => {
         return c._id == id;
@@ -20,11 +20,12 @@ const Home = () => {
 
       return filterData ? true : null;
     });
-    const url = `/${valideURLConvert(cat)}-${id}/${valideURLConvert(
+    console.log(subcategory);
+    const url = `/${valideURLConvert(catName)}-${id}/${valideURLConvert(
       subcategory?.name
     )}-${subcategory?._id}`;
 
-    navigate(url);
+    // navigate(url);
     console.log(url);
   };
   return (

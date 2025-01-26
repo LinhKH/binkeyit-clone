@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import { Toaster } from "sonner";
 import fetchUserDetails from "./utils/fetchUserDetails";
 import { setUserDetails } from "./store/userSlice";
+import GlobalProvider from "./provider/GlobalProvider";
 import {
   setAllCategory,
   setAllSubCategory,
@@ -70,14 +71,14 @@ function App() {
   }, []);
 
   return (
-    <>
+    <GlobalProvider>
       <Header />
       <main className="min-h-[78vh]">
         <Outlet />
       </main>
       <Footer />
       <Toaster position="top-center" richColors />
-    </>
+    </GlobalProvider>
   );
 }
 
