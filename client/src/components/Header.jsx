@@ -86,9 +86,9 @@ const Header = () => {
                   >
                     <p>Account</p>
                     {openUserMenu ? (
-                      <GoTriangleUp size={25} className="animate-bounce" />
+                      <GoTriangleUp size={25} />
                     ) : (
-                      <GoTriangleDown size={25} className="animate-bounce" />
+                      <GoTriangleDown size={25} />
                     )}
                   </div>
                   <div className="absolute right-0 top-12">
