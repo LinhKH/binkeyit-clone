@@ -18,6 +18,7 @@ import SubCategoryPage from "../pages/SubCategoryPage";
 import UploadProduct from "../pages/UploadProduct";
 import ProductAdmin from "../pages/ProductAdmin";
 import ProductListPage from "../pages/ProductListPage";
+import CartMobile from "../pages/CartMobile";
 
 const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
             element: <ProductListPage />,
           },
         ],
+      },
+      {
+        path: "cart",
+        element: <CartMobile />,
       },
     ],
   },
