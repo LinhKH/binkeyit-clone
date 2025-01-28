@@ -108,7 +108,7 @@ export const deleteAddresscontroller = async (request, response) => {
     );
 
     return response.json({
-      message: "Address remove",
+      message: "Address remove successfully",
       error: false,
       success: true,
       data: disableAddress,
