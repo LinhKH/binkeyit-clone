@@ -174,7 +174,7 @@ export async function webhookStripe(request, response) {
       const order = await OrderModel.insertMany(orderProduct);
 
       console.log(order);
-      if (Boolean(order[0])) {
+      if (order.length > 0) {
         const removeCartItems = await UserModel.findByIdAndUpdate(userId, {
           shopping_cart: [],
         });
